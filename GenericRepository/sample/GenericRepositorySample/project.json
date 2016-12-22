@@ -23,6 +23,10 @@
     "GenericRepository": "1.0.0-*"
   },
 
+  "tools": {
+    "Microsoft.EntityFrameworkCore.Tools.DotNet": "1.1.0-preview4-final"
+  },
+
   "frameworks": {
     "netcoreapp1.0": {
       "imports": "dnxcore50"

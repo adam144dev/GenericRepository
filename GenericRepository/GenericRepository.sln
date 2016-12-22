@@ -12,11 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GenericRepository", "src\GenericRepository\GenericRepository.xproj", "{97386054-FE98-49F7-888B-CA44488EA35D}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GenericRepositorySample", "src\GenericRepositorySample\GenericRepositorySample.xproj", "{FBE3AB5D-DB50-41B8-9AF7-6CBBB6B04764}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{A62F1E01-B5E6-49C4-AC34-D241349D09C4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{8D1DBD6E-EF25-492C-94F0-1C7C863B0575}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GenericRepositorySample", "sample\GenericRepositorySample\GenericRepositorySample.xproj", "{FBE3AB5D-DB50-41B8-9AF7-6CBBB6B04764}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
