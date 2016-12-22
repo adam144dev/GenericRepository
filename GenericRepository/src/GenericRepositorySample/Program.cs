@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using GenericRepositorySample.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -15,7 +14,7 @@ namespace GenericRepositorySample
             sample.ConfigureServices(serviceCollection);
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            sample.Configure(serviceProvider.GetService<ILoggerFactory>());
+            sample.Configure(serviceProvider, serviceProvider.GetService<ILoggerFactory>());
 
             sample.Run(serviceProvider);
         }

@@ -38,12 +38,12 @@ namespace GenericRepositorySample
 
         }
 
-        public void Configure(ILoggerFactory loggerFactory)
+        public void Configure(IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            //SeedData.EnsurePopulated(app);
+            SeedData.EnsurePopulated(serviceProvider.GetService<GenericRepositorySampleDbContext>());
 
             //Mapper.Initialize(cfg =>
             //{
@@ -57,7 +57,9 @@ namespace GenericRepositorySample
         {
             var service = serviceProvider.GetService<IService>();
 
-
+            Console.WriteLine("GetAllCategories");
+            foreach (var c in service.GetAllCategories())
+                Console.WriteLine("\tc");
         }
     }
 }
