@@ -7,6 +7,8 @@ namespace GenericRepositorySample.DAL
 {
     public class GenericRepositorySampleDbContext : DbContext
     {
+        public const string ConfigurationPath = "Data:GenericRepositorySample:ConnectionString";
+
         public GenericRepositorySampleDbContext(DbContextOptions<GenericRepositorySampleDbContext> options)
             : base(options)
         {
@@ -40,7 +42,7 @@ namespace GenericRepositorySample.DAL
             var configuration = builder.Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<GenericRepositorySampleDbContext>();
-            optionsBuilder.UseSqlServer(configuration["Data:GenericRepositorySample:ConnectionString"]);
+            optionsBuilder.UseSqlServer(configuration[GenericRepositorySampleDbContext.ConfigurationPath]);
 
             return new GenericRepositorySampleDbContext(optionsBuilder.Options);
         }

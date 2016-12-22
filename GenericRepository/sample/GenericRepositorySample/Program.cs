@@ -48,7 +48,7 @@ namespace GenericRepositorySample
             services.AddLogging();
 
             services.AddDbContext<GenericRepositorySampleDbContext>(options =>
-                 options.UseSqlServer(Configuration["Data:GenericRepositorySample:ConnectionString"]));
+                 options.UseSqlServer(Configuration[GenericRepositorySampleDbContext.ConfigurationPath]));
 
             services.AddTransient<IAuthorRepository, EFAuthorRepository>();
             services.AddTransient<IBookRepository, EFBookRepository>();
