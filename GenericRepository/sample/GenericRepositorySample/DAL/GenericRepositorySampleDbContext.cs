@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using GenericRepositorySample.Models;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.Configuration;
 
 namespace GenericRepositorySample.DAL
 {
     public class GenericRepositorySampleDbContext : DbContext
-
     {
         public GenericRepositorySampleDbContext(DbContextOptions<GenericRepositorySampleDbContext> options)
             : base(options)
@@ -24,7 +25,24 @@ namespace GenericRepositorySample.DAL
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
-        //    optionsBuilder.UseSqlServer();
+        //    optionsBuilder.UseSqlServer(...);
         //}
+    }
+
+    // For EF Migrations:
+    public class GenericRepositorySampleDbContextFactory : IDbContextFactory<GenericRepositorySampleDbContext>
+    {
+        public GenericRepositorySampleDbContext Create(DbContextFactoryOptions options)
+        {
+            var builder = new ConfigurationBuilder()
+               .SetBasePath(options.ContentRootPath)
+               .AddJsonFile("appsettings.json", optional: false);
+            var configuration = builder.Build();
+
+            var optionsBuilder = new DbContextOptionsBuilder<GenericRepositorySampleDbContext>();
+            optionsBuilder.UseSqlServer(configuration["Data:GenericRepositorySample:ConnectionString"]);
+
+            return new GenericRepositorySampleDbContext(optionsBuilder.Options);
+        }
     }
 }

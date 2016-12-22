@@ -1,22 +1,79 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using GenericRepositorySample.DAL;
+using GenericRepositorySample.Repositories;
+using GenericRepositorySample.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace GenericRepositorySample
 {
     public class Program
     {
+        public static IConfigurationRoot Configuration;
+
         public static void Main(string[] args)
         {
-            var sample = new Startup(Directory.GetCurrentDirectory());
+            Startup();
 
             var serviceCollection = new ServiceCollection();
-            sample.ConfigureServices(serviceCollection);
+            ConfigureServices(serviceCollection);
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            sample.Configure(serviceProvider, serviceProvider.GetService<ILoggerFactory>());
+            Configure(serviceProvider, serviceProvider.GetService<ILoggerFactory>());
 
-            sample.Run(serviceProvider);
+            Run(serviceProvider);
+        }
+        
+        public static void Startup()
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            Configuration = builder.Build();
+        }
+
+        public static void ConfigureServices(IServiceCollection services)
+        {
+
+            services.AddLogging();
+
+            services.AddDbContext<GenericRepositorySampleDbContext>(options =>
+                 options.UseSqlServer(Configuration["Data:GenericRepositorySample:ConnectionString"]));
+
+            services.AddTransient<IAuthorRepository, EFAuthorRepository>();
+            services.AddTransient<IBookRepository, EFBookRepository>();
+            services.AddTransient<ICategoryRepository, EFCategoryRepository>();
+
+            services.AddTransient<IService, Service>();
+
+        }
+
+        public static void Configure(IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
+        {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
+            SeedData.EnsurePopulated(serviceProvider.GetService<GenericRepositorySampleDbContext>());
+
+            //Mapper.Initialize(cfg =>
+            //{
+            //    cfg.CreateMap<Category, CategoryViewModel>().ReverseMap();
+            //    cfg.CreateMap<Author, AuthorViewModel>().ReverseMap();
+            //    cfg.CreateMap<Book, BookViewModel>().ReverseMap();
+            //});
+        }
+
+        public static void Run(IServiceProvider serviceProvider)
+        {
+            var service = serviceProvider.GetService<IService>();
+
+            Console.WriteLine("\nGetAllCategories");
+            foreach (var c in service.GetAllCategories())
+                Console.WriteLine($"\tId:{c.Id} Name:{c.Name}");
         }
     }
  
