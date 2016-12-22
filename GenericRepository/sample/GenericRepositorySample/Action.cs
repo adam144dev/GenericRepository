@@ -26,7 +26,7 @@ namespace GenericRepositorySample
             Console.WriteLine($"\nGetAllBooks");
             service.GetAllBooks().ForEach(WriteBook);
 
-            Console.WriteLine($"\nWriteGetBooksByCategoryId");
+            Console.WriteLine($"\nWriteGetBooksByCategoryId(count:{service.GetAllCategories().Count})");
             service.GetAllCategories().ForEach(e => WriteGetBooksByCategoryId(e.Id));
 
             Console.WriteLine($"\nWriteGetBookById");
