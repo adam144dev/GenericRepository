@@ -6,11 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace GenericRepositorySample
 {
-    public class Action
+    public class Application : IApplication
     {
         private readonly IService service;
 
-        public Action(IServiceProvider serviceProvider)
+        public Application(IServiceProvider serviceProvider)
         {
             service = serviceProvider.GetService<IService>();
         }

@@ -10,6 +10,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GenericRepositorySample
 {
+    public interface IApplication
+    {
+        void Run();
+    }
+
+
     public class Program
     {
         public static IConfigurationRoot Configuration;
@@ -24,8 +30,8 @@ namespace GenericRepositorySample
             var serviceProvider = serviceCollection.BuildServiceProvider();
             Configure(serviceProvider, serviceProvider.GetService<ILoggerFactory>());
 
-            var action = new Action(serviceProvider);
-            action.Run();
+            var application = serviceProvider.GetService<IApplication>();
+            application.Run();
         }
         
         public static void Startup()
@@ -39,7 +45,6 @@ namespace GenericRepositorySample
 
         public static void ConfigureServices(IServiceCollection services)
         {
-
             services.AddLogging();
 
             services.AddDbContext<GenericRepositorySampleDbContext>(options =>
@@ -50,6 +55,8 @@ namespace GenericRepositorySample
             services.AddTransient<ICategoryRepository, EFCategoryRepository>();
 
             services.AddTransient<IService, Service>();
+
+            services.AddSingleton<IApplication, Application>();
 
         }
 
