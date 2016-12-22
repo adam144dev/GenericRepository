@@ -24,7 +24,8 @@ namespace GenericRepositorySample
             var serviceProvider = serviceCollection.BuildServiceProvider();
             Configure(serviceProvider, serviceProvider.GetService<ILoggerFactory>());
 
-            Run(serviceProvider);
+            var action = new Action(serviceProvider);
+            action.Run();
         }
         
         public static void Startup()
@@ -66,15 +67,5 @@ namespace GenericRepositorySample
             //    cfg.CreateMap<Book, BookViewModel>().ReverseMap();
             //});
         }
-
-        public static void Run(IServiceProvider serviceProvider)
-        {
-            var service = serviceProvider.GetService<IService>();
-
-            Console.WriteLine("\nGetAllCategories");
-            foreach (var c in service.GetAllCategories())
-                Console.WriteLine($"\tId:{c.Id} Name:{c.Name}");
-        }
     }
- 
 }
