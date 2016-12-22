@@ -56,7 +56,7 @@ namespace GenericRepositorySample
 
             services.AddTransient<IService, Service>();
 
-            services.AddSingleton<IApplication, Application>();
+            services.AddSingleton<IApplication, GRSApplication>();
 
         }
 
