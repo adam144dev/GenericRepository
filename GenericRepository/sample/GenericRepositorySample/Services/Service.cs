@@ -40,8 +40,8 @@ namespace GenericRepositorySample.Services
         public IList<Book> GetBooksByCategoryId(int categoryId) 
             =>  _bookRepository
                     .Include("Author")
-                    .Where(e => e.CategoryId == categoryId).
-                    OrderByDescending(e => e.Featured)
+                    .Where(e => e.CategoryId == categoryId)
+                    .OrderByDescending(e => e.Featured)
                     .ToList();
 
         public IList<Book> GetFeaturedBooks()
