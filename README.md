@@ -1,4 +1,7 @@
 # GenericRepository
 
 Generic Repositories Framework & Sample - console application with Dependency Injection.
-According to SOLID, DRY, KISS rules.
+According to rules: SOLID, DRY, KISS & Nifty*.
+
+(*) Copyright by adam144dev
+
