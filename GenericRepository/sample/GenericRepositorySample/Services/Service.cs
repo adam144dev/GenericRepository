@@ -35,7 +35,7 @@ namespace GenericRepositorySample.Services
 
 
         public IList<Book> GetAllBooks() 
-            => _bookRepository.Books.ToList();
+            => _bookRepository.Entities.ToList();
 
         public IList<Book> GetBooksByCategoryId(int categoryId) 
             =>  _bookRepository
