@@ -24,7 +24,7 @@ namespace GenericRepositorySample.Services
 
 
         public IList<Category> GetAllCategories() 
-            => _categoryRepository.Categories.ToList();
+            => _categoryRepository.Entities.ToList();
         
 
         public IList<Author> GetAllAuthors() 
