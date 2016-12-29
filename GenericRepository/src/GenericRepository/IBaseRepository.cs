@@ -10,10 +10,10 @@ namespace GenericRepository
         IQueryable<TEntity> Include(params string[] paths);
 
 
-        void Add(TEntity entity);
+        void Add(params TEntity[] entities);
 
-        void Update(TEntity entity);
+        void Update(params TEntity[] entities);
 
-        void Delete(TEntity entity);
+        void Delete(params TEntity[] entities);
     }
 }

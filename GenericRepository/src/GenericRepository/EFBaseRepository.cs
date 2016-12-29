@@ -26,21 +26,27 @@ namespace GenericRepository
         }
 
 
-        public void Add(TEntity entity)
+        public void Add(params TEntity[] entities)
         {
-            _dbContext.Add(entity);
+            foreach (var entity in entities)
+                _dbContext.Add(entity);
+
             _dbContext.SaveChanges();
         }
 
-        public void Update(TEntity entity)
+        public void Update(params TEntity[] entities)
         {
-            _dbContext.Entry<TEntity>(entity).State = EntityState.Modified;
+            foreach (var entity in entities)
+                _dbContext.Entry<TEntity>(entity).State = EntityState.Modified;
+
             _dbContext.SaveChanges();
         }
 
-        public void Delete(TEntity entity)
+        public void Delete(params TEntity[] entities)
         {
-            _dbContext.Remove(entity);
+            foreach (var entity in entities)
+                _dbContext.Remove(entity);
+
             _dbContext.SaveChanges();
         }
     }
