@@ -9,6 +9,7 @@
     },
     "xunit": "2.1.0",
     "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "moq.netcore": "4.4.0-beta8",
     "GenericRepositorySample": "1.0.0-*"
   },
 
