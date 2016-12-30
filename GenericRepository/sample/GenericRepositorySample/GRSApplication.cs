@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using CollectionsExtensions;
 using GenericRepositorySample.Models;
 using GenericRepositorySample.Services;
@@ -31,7 +32,60 @@ namespace GenericRepositorySample
 
             Console.WriteLine($"\nWriteGetBookById");
             service.GetAllBooks().ForEach(e => WriteGetBookById(e.Id));
+
+            RunModifyCategory();
         }
+
+        private void RunModifyCategory()
+        {
+            Console.WriteLine($"\nRunModifyCategory");
+
+            Console.WriteLine($"\nGetAllCategories");
+            service.GetAllCategories().ForEach(WriteCategory);
+
+            var category = new Category { Name = "newEntity" };
+            Console.WriteLine($"\nAddCategory:");
+            WriteCategory(category);
+            service.AddCategory(category);
+
+            Console.WriteLine($"\nGetAllCategories");
+            service.GetAllCategories().ForEach(WriteCategory);
+
+
+            var categories = new Category[]
+                {
+                    new Category { Name = "newEntity1" },
+                    new Category { Name = "newEntity2" }
+                };
+            Console.WriteLine($"\nAddCategories:");
+            categories.ForEach(WriteCategory);
+            service.AddCategories(categories);
+
+            Console.WriteLine($"\nGetAllCategories");
+            service.GetAllCategories().ForEach(WriteCategory);
+
+
+            Console.WriteLine($"\nUpdateCategory:");
+            WriteCategory(category);
+            Console.WriteLine($"\tto:");
+            category.Name = "newName";
+            WriteCategory(category);
+            service.UpdateCategory(category);
+
+            Console.WriteLine($"\nGetAllCategories");
+            service.GetAllCategories().ForEach(WriteCategory);
+
+
+            Console.WriteLine($"\nDeleteCategories:");
+            WriteCategory(category);
+            service.DeleteCategory(category);
+            categories.ForEach(WriteCategory);
+            categories.ForEach(service.DeleteCategory);
+
+            Console.WriteLine($"\nGetAllCategories");
+            service.GetAllCategories().ForEach(WriteCategory);
+        }
+
 
         private void WriteCategory(Category e)
             => Console.WriteLine($"\tId:{e.Id} Name:{e.Name}");

@@ -6,19 +6,19 @@ namespace GenericRepositorySample.test.Services
 {
     public class FakeRepositoryData
     {
-        private Category[] _categories;
-        private Author[] _authors;
-        private Book[] _books;
+        private List<Category> _categories;
+        private List<Author> _authors;
+        private List<Book> _books;
 
 
-        public IQueryable <Category> Categories => _categories.AsQueryable();
-        public IQueryable<Author> Authors => _authors.AsQueryable();
-        public IQueryable<Book> Books => _books.AsQueryable();
+        public List<Category> Categories => _categories;
+        public List<Author> Authors => _authors;
+        public List<Book> Books => _books;
 
 
         public FakeRepositoryData()
         {
-            _categories = new Category[]
+            _categories = new List<Category>
             {
                 new Category { Id = 1, Name = "Books"},
                 new Category { Id = 2, Name = "Super books"},
@@ -26,7 +26,7 @@ namespace GenericRepositorySample.test.Services
                 new Category { Id = 4, Name = "Zeta hyper books :-)"}
             };
 
-            _authors = new Author[]
+            _authors = new List<Author>
             {
                     new Author{
                         Id = 1,
@@ -42,7 +42,7 @@ namespace GenericRepositorySample.test.Services
                     },
             };
 
-            _books = new Book[]
+            _books = new List<Book>
             {
                     new Book
                     {

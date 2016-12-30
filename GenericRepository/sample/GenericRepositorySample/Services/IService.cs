@@ -14,6 +14,11 @@ namespace GenericRepositorySample.Services
         IList<Book> GetBooksByCategoryId(int categoryId);
         IList<Book> GetFeaturedBooks();
         Book GetBookById(int id);
+
+        Category AddCategory(Category category);
+        IList<Category> AddCategories(IList<Category> categories);
+        Category UpdateCategory(Category category);
+        void DeleteCategory(Category category);
     }
 }
 
