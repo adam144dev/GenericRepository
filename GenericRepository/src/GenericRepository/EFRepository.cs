@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 
 namespace GenericRepository
 {
@@ -46,6 +47,12 @@ namespace GenericRepository
             _dbContext.RemoveRange(entities);
             _dbContext.SaveChanges();
         }
+        public void Delete(IEnumerable<TEntity> entities)
+        {
+            _dbContext.RemoveRange(entities);
+            _dbContext.SaveChanges();
+        }
+
 
         /// <summary>
         /// IRepositoryDisconnected<TEntity>
@@ -56,16 +63,16 @@ namespace GenericRepository
             throw new NotImplementedException(nameof(UpdateDisconnected));
         }
 
+
         public void DeleteDisconnected(params int[] entitiesId)
-        {
-            throw new NotImplementedException(nameof(DeleteDisconnected));
-        }
+            => Delete(_dbContext.Set<TEntity>().Where(e => entitiesId.Contains(e.Id)));
 
         public void DeleteDisconnected(params TEntity[] entities)
-        {
-            throw new NotImplementedException(nameof(DeleteDisconnected));
-        }
-
+            => DeleteDisconnected(entities.Select(e => e.Id).ToArray());
+        
+        public void DeleteDisconnected(IEnumerable<TEntity> entities)
+            => DeleteDisconnected(entities.Select(e => e.Id).ToArray());
+        
         //// TODO - consider: for optimization only variant
         //private void DeleteDisconnected(int entityId)
         //{

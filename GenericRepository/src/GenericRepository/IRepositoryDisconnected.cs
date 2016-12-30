@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace GenericRepository
 {
@@ -12,5 +13,6 @@ namespace GenericRepository
     {
         void DeleteDisconnected(params int[] entitiesId);
         void DeleteDisconnected(params TEntity[] entities);
+        void DeleteDisconnected(IEnumerable<TEntity> entities);
     }
 }

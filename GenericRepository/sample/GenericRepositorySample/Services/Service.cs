@@ -61,10 +61,10 @@ namespace GenericRepositorySample.Services
             _categoryRepository.Add(category);
             return category;
         }
-        public IList<Category> AddCategories(IList<Category> categories)
+        public IList<Category> AddCategories(IEnumerable<Category> categories)
         {
             _categoryRepository.Add(categories.ToArray());
-            return categories;
+            return categories.ToList();
         }
 
         public Category UpdateCategory(Category category)
@@ -77,7 +77,10 @@ namespace GenericRepositorySample.Services
         {
             _categoryRepository.Delete(category);
         }
-
+        public void DeleteCategories(IEnumerable<Category> categories)
+        {
+            _categoryRepository.Delete(categories);
+        }
     }
 }
 

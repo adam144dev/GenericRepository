@@ -16,9 +16,12 @@ namespace GenericRepositorySample.Services
         Book GetBookById(int id);
 
         Category AddCategory(Category category);
-        IList<Category> AddCategories(IList<Category> categories);
+        IList<Category> AddCategories(IEnumerable<Category> categories);
+
         Category UpdateCategory(Category category);
+
         void DeleteCategory(Category category);
+        void DeleteCategories(IEnumerable<Category> categories);
     }
 }
 

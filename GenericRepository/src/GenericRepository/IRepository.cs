@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace GenericRepository
 {
@@ -15,5 +16,7 @@ namespace GenericRepository
         void Update(params TEntity[] entities);
 
         void Delete(params TEntity[] entities);
+        void Delete(IEnumerable<TEntity> entities);
+
     }
 }
