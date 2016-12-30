@@ -5,7 +5,7 @@ using GenericRepositorySample.Models;
 
 namespace GenericRepositorySample.Repositories
 {
-    public class EFCategoryRepository : EFBaseRepository<Category>, ICategoryRepository
+    public class EFCategoryRepository : EFRepository<Category>, ICategoryRepository
     {
         public EFCategoryRepository(GenericRepositorySampleDbContext dbContext)
             : base(dbContext)

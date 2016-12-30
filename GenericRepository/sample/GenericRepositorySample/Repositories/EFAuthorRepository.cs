@@ -5,7 +5,7 @@ using GenericRepository;
 
 namespace GenericRepositorySample.Repositories
 {
-    public class EFAuthorRepository : EFBaseRepository<Author>, IAuthorRepository
+    public class EFAuthorRepository : EFRepository<Author>, IAuthorRepository
     {
         public EFAuthorRepository(GenericRepositorySampleDbContext dbContext)
             : base(dbContext)

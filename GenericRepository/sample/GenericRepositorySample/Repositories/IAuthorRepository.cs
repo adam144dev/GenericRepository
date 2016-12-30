@@ -4,7 +4,7 @@ using GenericRepositorySample.Models;
 
 namespace GenericRepositorySample.Repositories
 {
-    public interface IAuthorRepository : IBaseRepository<Author>
+    public interface IAuthorRepository : IRepository<Author>, IRepositoryDisconnected<Author>
     {
         IQueryable<Author> Authors { get; }
 

@@ -4,7 +4,7 @@ using GenericRepository;
 
 namespace GenericRepositorySample.Repositories
 {
-    public interface ICategoryRepository : IBaseRepository<Category>
+    public interface ICategoryRepository : IRepository<Category>, IRepositoryDisconnected<Category>
     {
         IQueryable<Category> Categories { get; }
     }

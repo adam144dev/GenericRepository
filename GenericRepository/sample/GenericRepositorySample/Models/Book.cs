@@ -1,6 +1,8 @@
-﻿namespace GenericRepositorySample.Models
+﻿using GenericRepository;
+
+namespace GenericRepositorySample.Models
 {
-    public class Book
+    public class Book : IEntityId
     {
         public int Id { get; set; }
 

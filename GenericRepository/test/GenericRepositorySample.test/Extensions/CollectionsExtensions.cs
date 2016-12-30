@@ -15,6 +15,7 @@ namespace GenericRepositorySample.test.Extensions
         public static IList<T> AddRange<T>(this IList<T> collection, IEnumerable<T> objects)
             => AddRange<T>((ICollection<T>)collection, objects) as IList<T>;
 
+
         public static ICollection<T> RemoveRange<T>(this ICollection<T> collection, IEnumerable<T> objects)
         {
             foreach (var o in objects)

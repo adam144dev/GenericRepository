@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using GenericRepository;
+using System.Collections.Generic;
 
 namespace GenericRepositorySample.Models
 {
-    public class Category
+    public class Category : IEntityId
     {
         public int Id { get; set; }
 

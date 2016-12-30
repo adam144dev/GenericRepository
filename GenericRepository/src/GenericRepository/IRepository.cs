@@ -2,7 +2,7 @@
 
 namespace GenericRepository
 {
-    public interface IBaseRepository<TEntity>
+    public interface IRepository<TEntity>
         where TEntity : class
     {
         IQueryable<TEntity> Entities { get; }

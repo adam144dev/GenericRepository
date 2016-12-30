@@ -5,7 +5,7 @@ using GenericRepositorySample.Models;
 
 namespace GenericRepositorySample.Repositories
 {
-    public class EFBookRepository : EFBaseRepository<Book>, IBookRepository
+    public class EFBookRepository : EFRepository<Book>, IBookRepository
     {
         public EFBookRepository(GenericRepositorySampleDbContext dbContext)
             : base(dbContext)

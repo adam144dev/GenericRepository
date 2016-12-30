@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using GenericRepository;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GenericRepositorySample.Models
 {
-    public class Author
+    public class Author : IEntityId
     {
         public int Id { get; set; }
 
