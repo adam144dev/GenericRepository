@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace GenericRepository
 {
@@ -50,41 +51,19 @@ namespace GenericRepository
         /// IRepositoryDisconnected<TEntity>
         /// </summary>
 
-        //public void UpdateDisconnected(params TEntity[] entities)
-        //{
-        //    var r = new List<TEntity>();
-        //    foreach (var entity in entities)
-        //    {
-        //        var e = _dbContext.Set<TEntity>().Find(entity.Id);
-        //        if (e != null)
-        //            r.Add(e);
-        //    }
-
-        //    Update(r.ToArray());
-        //}
+        public void UpdateDisconnected(params TEntity[] entities)
+        {
+            throw new NotImplementedException(nameof(UpdateDisconnected));
+        }
 
         public void DeleteDisconnected(params int[] entitiesId)
         {
-            //// TODO - consider:
-            //if (entitiesId.Length == 1)
-            //{   // optimization only variant
-            //    DeleteDisconnected(entitiesId[0]);
-            //    return;
-            //}
-            var entitiesFound = _dbContext.Set<TEntity>().Where(e => entitiesId.SingleOrDefault(eId => eId == e.Id ) != 0);
-            Delete(entitiesFound.ToArray());
+            throw new NotImplementedException(nameof(DeleteDisconnected));
         }
 
         public void DeleteDisconnected(params TEntity[] entities)
         {
-            //// TODO - consider:
-            //if (entities.Length == 1)
-            //{   // optimization only variant
-            //    DeleteDisconnected(entities[0].Id);
-            //    return;
-            //}
-            var entitiesFound = _dbContext.Set<TEntity>().Intersect(entities);
-            Delete(entitiesFound.ToArray());
+            throw new NotImplementedException(nameof(DeleteDisconnected));
         }
 
         //// TODO - consider: for optimization only variant
