@@ -146,24 +146,22 @@ namespace GenericRepositorySample.test.Services
             Assert.Equal(0, fakeRepoData.Categories.Where(f => f.Name == e.Name).Count());
         }
 
-
         private IService GetServiceOnMock(FakeRepositoryData fakeRepoData)
         {
-            var mockC = new Mock<ICategoryRepository>();
-            var mockA = new Mock<IAuthorRepository>();
-            var mockB = new Mock<IBookRepository>();
+            var mockC = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            var mockA = new Mock<IAuthorRepository>(MockBehavior.Strict);
+            var mockB = new Mock<IBookRepository>(MockBehavior.Strict);
 
-            mockC.SetupGet(m => m.Entities).Returns(fakeRepoData.Categories.AsQueryable());
-            mockA.SetupGet(m => m.Entities).Returns(fakeRepoData.Authors.AsQueryable());
-            mockB.SetupGet(m => m.Entities).Returns(fakeRepoData.Books.AsQueryable());
+            mockC.Setup(m => m.Entities).Returns(fakeRepoData.Categories.AsQueryable());
+            mockA.Setup(m => m.Entities).Returns(fakeRepoData.Authors.AsQueryable());
+            mockB.Setup(m => m.Entities).Returns(fakeRepoData.Books.AsQueryable());
 
             mockC.Setup(m => m.Include(It.IsAny<string>())).Returns(fakeRepoData.Categories.AsQueryable());
             mockA.Setup(m => m.Include(It.IsAny<string>())).Returns(fakeRepoData.Authors.AsQueryable());
             mockB.Setup(m => m.Include(It.IsAny<string>())).Returns(fakeRepoData.Books.AsQueryable());
 
-            mockC.Setup(m => m.Add(It.IsAny<Category[]>())).Callback<Category[]>(e => fakeRepoData.Categories.AddRange(e));
-            mockC.Setup(m => m.Delete(It.IsAny<Category[]>())).Callback<Category[]>(e => fakeRepoData.Categories.RemoveRange(e));
-
+            mockC.Setup(m => m.Add(It.IsAny<Category[]>())).Callback((Category[] e) => fakeRepoData.Categories.AddRange(e));
+            mockC.Setup(m => m.Delete(It.IsAny<Category[]>())).Callback((Category[] e) => fakeRepoData.Categories.RemoveRange(e));
 
             return new Service(mockC.Object, mockA.Object, mockB.Object);
         }
