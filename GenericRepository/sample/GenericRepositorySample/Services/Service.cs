@@ -23,28 +23,28 @@ namespace GenericRepositorySample.Services
         }
 
 
-        public IList<Category> GetAllCategories() 
+        public List<Category> GetAllCategories() 
             => _categoryRepository.Entities.ToList();
         
 
-        public IList<Author> GetAllAuthors() 
+        public List<Author> GetAllAuthors() 
             => _authorRepository.Entities.ToList();
 
         public Author GetAuthorById(int id) 
             => _authorRepository.Entities.SingleOrDefault(e => e.Id == id);
 
 
-        public IList<Book> GetAllBooks() 
+        public List<Book> GetAllBooks() 
             => _bookRepository.Entities.ToList();
 
-        public IList<Book> GetBooksByCategoryId(int categoryId) 
+        public List<Book> GetBooksByCategoryId(int categoryId) 
             =>  _bookRepository
                     .Include("Author")
                     .Where(e => e.CategoryId == categoryId)
                     .OrderByDescending(e => e.Featured)
                     .ToList();
 
-        public IList<Book> GetFeaturedBooks()
+        public List<Book> GetFeaturedBooks()
             => _bookRepository
                     .Include("Author")
                     .Where(e => e.Featured)
@@ -61,7 +61,7 @@ namespace GenericRepositorySample.Services
             _categoryRepository.Add(category);
             return category;
         }
-        public IList<Category> AddCategories(IEnumerable<Category> categories)
+        public List<Category> AddCategories(IEnumerable<Category> categories)
         {
             _categoryRepository.Add(categories.ToArray());
             return categories.ToList();
@@ -76,6 +76,10 @@ namespace GenericRepositorySample.Services
         public void DeleteCategory(Category category)
         {
             _categoryRepository.Delete(category);
+        }
+        public void DeleteCategories(params Category[] categories)
+        {
+            _categoryRepository.Delete(categories);
         }
         public void DeleteCategories(IEnumerable<Category> categories)
         {

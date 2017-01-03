@@ -42,6 +42,12 @@ namespace GenericRepository
             _dbContext.SaveChanges();
         }
 
+        public TEntity Delete(TEntity entity)
+        {
+            var e = _dbContext.Remove(entity).Entity;
+            _dbContext.SaveChanges();
+            return e;
+        }
         public void Delete(params TEntity[] entities)
         {
             _dbContext.RemoveRange(entities);

@@ -15,6 +15,7 @@ namespace GenericRepository
 
         void Update(params TEntity[] entities);
 
+        TEntity Delete(TEntity entity);
         void Delete(params TEntity[] entities);
         void Delete(IEnumerable<TEntity> entities);
 

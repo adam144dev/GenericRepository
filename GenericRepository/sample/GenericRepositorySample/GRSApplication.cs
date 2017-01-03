@@ -77,10 +77,13 @@ namespace GenericRepositorySample
 
 
             Console.WriteLine($"\nDeleteCategories:");
+            var categoryD = new Category { Id = category.Id };
+            //WriteCategory(categoryD);
+            //service.DeleteCategory(categoryD);
             WriteCategory(category);
             service.DeleteCategory(category);
             categories.ForEach(WriteCategory);
-            categories.ForEach(service.DeleteCategory);
+            service.DeleteCategories(categories);
 
             Console.WriteLine($"\nGetAllCategories");
             service.GetAllCategories().ForEach(WriteCategory);
