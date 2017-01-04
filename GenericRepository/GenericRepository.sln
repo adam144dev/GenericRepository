@@ -20,7 +20,7 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GenericRepositorySample", "
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GenericRepositorySample.test", "test\GenericRepositorySample.test\GenericRepositorySample.test.xproj", "{8B6D9565-5EB3-45C1-908F-09135FA92761}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Extensions", "src\Extensions\Extensions.xproj", "{DB45EFBA-89B0-4532-BA9C-F4E480FFEA91}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Utilities", "src\Utilities\Utilities.xproj", "{DB45EFBA-89B0-4532-BA9C-F4E480FFEA91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

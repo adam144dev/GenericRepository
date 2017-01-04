@@ -2,7 +2,7 @@
 using GenericRepositorySample.Models;
 using GenericRepositorySample.Services;
 using Microsoft.Extensions.DependencyInjection;
-using Extensions;
+using Utilities;
 
 namespace GenericRepositorySample
 {

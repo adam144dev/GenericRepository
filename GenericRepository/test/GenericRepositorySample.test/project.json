@@ -12,8 +12,7 @@
     "moq.netcore": "4.4.0-beta8",
     "System.Diagnostics.TraceSource": "4.3.0",
     "GenericRepositorySample": "1.0.0-*",
-    "Extensions": "1.0.0-*"
-  },
+    "Utilities": "1.0.0-*"  },
 
   "frameworks": {
     "netcoreapp1.1": {
