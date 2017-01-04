@@ -6,7 +6,7 @@ using Moq;
 using Xunit;
 using System;
 using System.Collections.Generic;
-using GenericRepositorySample.test.Extensions;
+using Extensions;
 
 namespace GenericRepositorySample.test.Services
 {

@@ -1,9 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace GenericRepositorySample.test.Extensions
+namespace Extensions
 {
     public static class CollectionsExtensions
     {
+        public static void ForEach<T>(this IList<T> list, Action<T> action)
+        {
+            foreach (T t in list)
+                action(t);
+        }
+
+
         public static ICollection<T> AddRange<T>(this ICollection<T> collection, params T[] objects)
         {
             foreach (var o in objects)

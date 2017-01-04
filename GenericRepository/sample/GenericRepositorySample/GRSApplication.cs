@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Linq;
-using CollectionsExtensions;
 using GenericRepositorySample.Models;
 using GenericRepositorySample.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Extensions;
 
 namespace GenericRepositorySample
 {
