@@ -30,17 +30,40 @@ namespace GenericRepository
         }
 
 
-        public void Add(params TEntity[] entities)
+        public TEntity Add(TEntity entity)
+        {
+            var e = _dbContext.Add(entity).Entity;
+            _dbContext.SaveChanges();
+            return e;
+        }
+
+        public void Add(IEnumerable<TEntity> entities)
         {
             _dbContext.AddRange(entities);
             _dbContext.SaveChanges();
         }
 
-        public void Update(params TEntity[] entities)
+        public void Add(params TEntity[] entities)
+            => Add((IEnumerable<TEntity>)entities);
+
+
+        public TEntity Update(TEntity entity)
+        {
+            var e = _dbContext.Update(entity).Entity;
+            _dbContext.SaveChanges();
+            return e;
+        }
+
+        public void Update(IEnumerable<TEntity> entities)
         {
             _dbContext.UpdateRange(entities);
             _dbContext.SaveChanges();
         }
+
+        public void Update(params TEntity[] entities)
+            => Update((IEnumerable<TEntity>)entities);
+
+
 
         public TEntity Delete(TEntity entity)
         {
@@ -48,16 +71,15 @@ namespace GenericRepository
             _dbContext.SaveChanges();
             return e;
         }
-        public void Delete(params TEntity[] entities)
-        {
-            _dbContext.RemoveRange(entities);
-            _dbContext.SaveChanges();
-        }
+
         public void Delete(IEnumerable<TEntity> entities)
         {
             _dbContext.RemoveRange(entities);
             _dbContext.SaveChanges();
         }
+
+        public void Delete(params TEntity[] entities)
+            => Delete((IEnumerable<TEntity>)entities);
 
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using GenericRepositorySample.Models;
 using GenericRepositorySample.Repositories;
 using System.Linq;
@@ -56,35 +57,49 @@ namespace GenericRepositorySample.Services
                     .SingleOrDefault(e => e.Id == id);
 
 
-        public Category AddCategory(Category category)
+        public void AddCategory(Category category)
         {
             _categoryRepository.Add(category);
-            return category;
-        }
-        public List<Category> AddCategories(IEnumerable<Category> categories)
-        {
-            _categoryRepository.Add(categories.ToArray());
-            return categories.ToList();
         }
 
-        public Category UpdateCategory(Category category)
+        public void AddCategories(IEnumerable<Category> categories)
+        {
+            //Debug.Assert((categories != null) && (categories.Any()), nameof(AddCategories), "(categories != null) && (categories.Any())");
+            _categoryRepository.Add(categories);
+        }
+
+        public void AddCategories(params Category[] categories)
+            => AddCategories((IEnumerable<Category>)categories);
+
+
+        public void UpdateCategory(Category category)
         {
             _categoryRepository.Update(category);
-            return category;
         }
+
+        public void UpdateCategory(IEnumerable<Category> categories)
+        {
+            //Debug.Assert((categories != null) && (categories.Any()), nameof(UpdateCategory), "(categories != null) && (categories.Any())");
+            _categoryRepository.Update(categories);
+        }
+
+        public void UpdateCategory(params Category[] categories)
+            => UpdateCategory((IEnumerable<Category>)categories);
+
 
         public void DeleteCategory(Category category)
         {
             _categoryRepository.Delete(category);
         }
-        public void DeleteCategories(params Category[] categories)
-        {
-            _categoryRepository.Delete(categories);
-        }
+
         public void DeleteCategories(IEnumerable<Category> categories)
         {
+            //Debug.Assert((categories != null) && (categories.Any()), nameof(DeleteCategories), "(categories != null) && (categories.Any())");
             _categoryRepository.Delete(categories);
         }
+
+        public void DeleteCategories(params Category[] categories)
+            => DeleteCategories((IEnumerable<Category>)categories);
     }
 }
 

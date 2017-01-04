@@ -101,6 +101,7 @@ namespace GenericRepositorySample.test.Services
             Assert.Equal(id, r.Id);
         }
 
+
         [Fact]
         public void AddCategory()
         {
@@ -109,55 +110,56 @@ namespace GenericRepositorySample.test.Services
             var Service = GetServiceOnMock(fakeRepoData);
             var e = new Category { Name = "newEntity" };
             // Act
-            var r = Service.AddCategory(e);
+            Service.AddCategory(e);
             //Assert
             Assert.Single(fakeRepoData.Categories.Where(f => f.Name == "newEntity"));
         }
 
         [Fact]
-        public void AddCategories()
+        public void AddCategoriesIEnumerable()
         {
             // Arrange
             var fakeRepoData = new FakeRepositoryData();
             var Service = GetServiceOnMock(fakeRepoData);
 
-            var e = new Category[]
+            var e = new List<Category>
             {
                 new Category { Name = "newEntity1" },
                 new Category { Name = "newEntity2" }
             };
 
             // Act
-            var r = Service.AddCategories(e);
+            Service.AddCategories(e);
             //Assert
-            Assert.Equal(2, fakeRepoData.Categories.Where(f => f.Name.Contains("newEntity")).Count());
+            Assert.Equal(2, fakeRepoData.Categories.Count(f => f.Name.Contains("newEntity")));
         }
 
-       [Fact]
+        [Fact]
+        public void AddCategoriesParams()
+        {
+            // Arrange
+            var fakeRepoData = new FakeRepositoryData();
+            var Service = GetServiceOnMock(fakeRepoData);
+
+            // Act
+            Service.AddCategories(new Category { Name = "newEntity1" }, new Category { Name = "newEntity2" });
+            //Assert
+            Assert.Equal(2, fakeRepoData.Categories.Count(f => f.Name.Contains("newEntity")));
+        }
+
+
+        [Fact]
         public void DeleteCategory()
         {
             // Arrange
             var fakeRepoData = new FakeRepositoryData();
             var Service = GetServiceOnMock(fakeRepoData);
             var e = fakeRepoData.Categories[0];
+
             // Act
             Service.DeleteCategory(e);
             //Assert
-            Assert.Equal(0, fakeRepoData.Categories.Where(f => f.Name == e.Name).Count());
-        }
-
-        [Fact]
-        public void DeleteCategoriesArray()
-        {
-            // Arrange
-            var fakeRepoData = new FakeRepositoryData();
-            var Service = GetServiceOnMock(fakeRepoData);
-            var e = fakeRepoData.Categories.Where(c => c.Id < 4).ToArray();
-            // Act
-            Service.DeleteCategories(e);
-            //Assert
-            Assert.Equal(1, fakeRepoData.Categories.Count());
-            Assert.True(fakeRepoData.Categories.Single().Id == 4);
+            Assert.Equal(0, fakeRepoData.Categories.Count(f => f.Name == e.Name));
         }
 
         [Fact]
@@ -167,8 +169,23 @@ namespace GenericRepositorySample.test.Services
             var fakeRepoData = new FakeRepositoryData();
             var Service = GetServiceOnMock(fakeRepoData);
             var e = fakeRepoData.Categories.Where(c => c.Id < 4);
+
             // Act
             Service.DeleteCategories(e);
+            //Assert
+            Assert.Equal(1, fakeRepoData.Categories.Count());
+            Assert.True(fakeRepoData.Categories.Single().Id == 4);
+        }
+
+        [Fact]
+        public void DeleteCategoriesParams()
+        {
+            // Arrange
+            var fakeRepoData = new FakeRepositoryData();
+            var Service = GetServiceOnMock(fakeRepoData);
+            
+            // Act
+            Service.DeleteCategories(fakeRepoData.Categories[0], fakeRepoData.Categories[1], fakeRepoData.Categories[2]);
             //Assert
             Assert.Equal(1, fakeRepoData.Categories.Count());
             Assert.True(fakeRepoData.Categories.Single().Id == 4);
@@ -189,11 +206,13 @@ namespace GenericRepositorySample.test.Services
             mockA.Setup(m => m.Include(It.IsAny<string>())).Returns(fakeRepoData.Authors.AsQueryable());
             mockB.Setup(m => m.Include(It.IsAny<string>())).Returns(fakeRepoData.Books.AsQueryable());
 
+            mockC.Setup(m => m.Add(It.IsAny<Category>())).Callback((Category e) => fakeRepoData.Categories.Add(e)).Returns((Category e) => e);
+            mockC.Setup(m => m.Add(It.IsAny<IEnumerable<Category>>())).Callback((IEnumerable<Category> e) => fakeRepoData.Categories.AddRange(e));
             mockC.Setup(m => m.Add(It.IsAny<Category[]>())).Callback((Category[] e) => fakeRepoData.Categories.AddRange(e));
 
             mockC.Setup(m => m.Delete(It.IsAny<Category>())).Callback((Category e) => fakeRepoData.Categories.Remove(e)).Returns((Category e) => e);
-            mockC.Setup(m => m.Delete(It.IsAny<Category[]>())).Callback((Category[] e) => fakeRepoData.Categories.RemoveRange(e));
             mockC.Setup(m => m.Delete(It.IsAny<IEnumerable<Category>>())).Callback((IEnumerable<Category> e) => fakeRepoData.Categories.RemoveRange(e.ToArray()));
+            mockC.Setup(m => m.Delete(It.IsAny<Category[]>())).Callback((Category[] e) => fakeRepoData.Categories.RemoveRange(e));
 
             return new Service(mockC.Object, mockA.Object, mockB.Object);
         }

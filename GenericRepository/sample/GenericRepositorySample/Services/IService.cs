@@ -15,14 +15,17 @@ namespace GenericRepositorySample.Services
         List<Book> GetFeaturedBooks();
         Book GetBookById(int id);
 
-        Category AddCategory(Category category);
-        List<Category> AddCategories(IEnumerable<Category> categories);
+        void AddCategory(Category category);
+        void AddCategories(IEnumerable<Category> categories);
+        void AddCategories(params Category[] categories);
 
-        Category UpdateCategory(Category category);
+        void UpdateCategory(Category category);
+        void UpdateCategory(IEnumerable<Category> categories);
+        void UpdateCategory(params Category[] categories);
 
         void DeleteCategory(Category category);
-        void DeleteCategories(params Category[] categories);
         void DeleteCategories(IEnumerable<Category> categories);
+        void DeleteCategories(params Category[] categories);
     }
 }
 
