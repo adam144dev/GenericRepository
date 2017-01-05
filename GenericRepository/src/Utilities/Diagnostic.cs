@@ -28,20 +28,22 @@ namespace Utilities
 
         //Diagnostic.Assert(false, "message", "detailMessage");
         public static void Assert(bool condition, string message, string detailMessage)
-            => Debug.Assert(condition, message ?? string.Empty, detailMessage ?? string.Empty);
+            => Debug.Assert(condition, message ?? string.Empty, detailMessage ?? string.Empty);  // while DEBUG
 
         //Diagnostic.Assert(false, "message");
         //Diagnostic.Assert(false);
         public static void Assert(bool condition, string message = null)
-            => Debug.Assert(condition, message ?? string.Empty, string.Empty);
+            => Assert(condition, message, string.Empty);
+
 
         //Diagnostic.Assert(false, "message", "detailMessage", new XException("message", "detailMessage"));
         public static void Assert<TException>(bool condition, string message, string detailMessage, TException exception)
             where TException : Exception
         {
-            Assert(condition, message, detailMessage);  // while DEBUG
+            Assert(condition, message, detailMessage);
 
-            if (!condition)                             // reachable when ^Assert=>Debug.Assert does not break/throw
+            // reachable when ^Assert=>Debug.Assert does not break/throw while DEBUG
+            if (!condition) 
                 throw exception;                            
         }
 
@@ -59,11 +61,6 @@ namespace Utilities
         //Diagnostic.Assert<XException>(false);        
         public static void Assert<TException>(bool condition)
             where TException : Exception, new()
-        {
-            Debug.Assert(condition);    // while DEBUG
-
-            if (!condition)             // reachable when ^Assert=>Debug.Assert does not break/throw
-                throw new TException();
-        }
+            => Assert<TException>(condition, string.Empty, string.Empty, new TException());
     }
 }
