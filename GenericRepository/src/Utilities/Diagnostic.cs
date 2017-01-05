@@ -60,8 +60,10 @@ namespace Utilities
         public static void Assert<TException>(bool condition)
             where TException : Exception, new()
         {
-            Debug.Assert(condition);
-            throw new TException();
+            Debug.Assert(condition);    // while DEBUG
+
+            if (!condition)             // reachable when ^Assert=>Debug.Assert does not break/throw
+                throw new TException();
         }
     }
 }
