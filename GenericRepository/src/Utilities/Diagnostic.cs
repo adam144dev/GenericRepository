@@ -11,8 +11,7 @@ namespace Utilities
         {
             Assert(
                 value != null,
-                paramName,
-                message,
+                paramName, message,
                 new ArgumentNullException(paramName ?? string.Empty, message ?? string.Empty)
             );
         }
@@ -21,8 +20,7 @@ namespace Utilities
         {
             Assert(
                 value.Any(),
-                paramName,
-                message,
+                paramName, message,
                 new ArgumentException(message ?? string.Empty, paramName ?? string.Empty)
             );
         }
@@ -42,7 +40,9 @@ namespace Utilities
             where TException : Exception
         {
             Assert(condition, message, detailMessage);  // while DEBUG
-            throw exception;                            // always until ^Assert=>Debug.Assert breaks
+
+            if (!condition)                             // reachable when ^Assert=>Debug.Assert does not break/throw
+                throw exception;                            
         }
 
         //Diagnostic.Assert(false, "message", new XException("message"));
