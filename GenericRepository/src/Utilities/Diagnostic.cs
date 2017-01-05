@@ -26,6 +26,15 @@ namespace Utilities
         }
 
 
+        /// <summary>
+        /// #if DEBUG
+        ///   Assert(false) #if DEBUG -> : if(Debugger.IsAttached) then Debugger.Break() else throw new DebugAssertException ()
+        ///   Assert(true) -> nothing
+        /// #else
+        ///   Assert(false/true) -> nothing
+        /// </summary>
+
+
         //Diagnostic.Assert(false, "message", "detailMessage");
         public static void Assert(bool condition, string message, string detailMessage)
             => Debug.Assert(condition, message ?? string.Empty, detailMessage ?? string.Empty);  // while DEBUG
